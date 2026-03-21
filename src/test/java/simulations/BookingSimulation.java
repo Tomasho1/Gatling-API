@@ -2,14 +2,14 @@ package simulations;
 
 import io.gatling.javaapi.core.OpenInjectionStep;
 import io.gatling.javaapi.core.Simulation;
-import scenarios.AuthScenario;
+import scenarios.BookingScenario;
 import utils.ProtocolBuilder;
 
-public class AuthSimulation extends Simulation {
+public class BookingSimulation extends Simulation {
 
     {
         setUp(
-                AuthScenario.CREATE_TOKEN_SCENARIO.injectOpen(OpenInjectionStep.atOnceUsers(1))
+                BookingScenario.CREATE_BOOKING_SCENARIO.injectOpen(OpenInjectionStep.atOnceUsers(1))
         ).protocols(ProtocolBuilder.defaultProtocol());
     }
 }

@@ -16,4 +16,11 @@ public class RequestBuilder {
                 .check(status().is(status));
 
     }
+
+    public static HttpRequestActionBuilder sendGetRequestAndCheckStatus(String url, int status) {
+        return http("GET " + url)
+                .get(url)
+                .check(status().is(status));
+
+    }
 }

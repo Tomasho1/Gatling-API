@@ -7,6 +7,6 @@ import static io.gatling.javaapi.core.CoreDsl.scenario;
 
 public class AuthScenario {
 
-    public static ScenarioBuilder AUTH_SCENARIO = scenario("Auth scenario")
+    public static ScenarioBuilder CREATE_TOKEN_SCENARIO = scenario("Create token scenario")
             .exec(AuthFeature.createToken());
 }
