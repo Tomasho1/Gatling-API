@@ -8,7 +8,7 @@ import static io.gatling.javaapi.http.HttpDsl.status;
 
 public class RequestBuilder {
 
-    public static HttpRequestActionBuilder sendPostRequestAndCheckStatus(String url, String body, int status) {
+    public static HttpRequestActionBuilder post(String url, String body, int status) {
         return http("POST " + url)
                 .post(url)
                 .body(ElFileBody(body))
@@ -17,7 +17,12 @@ public class RequestBuilder {
 
     }
 
-    public static HttpRequestActionBuilder sendGetRequestAndCheckStatus(String url, int status) {
+    public static HttpRequestActionBuilder postWithAuth(String url, String body, int status) {
+        return post(url, body, status)
+                .header("Cookie", "token=#{token}");
+    }
+
+    public static HttpRequestActionBuilder get(String url, int status) {
         return http("GET " + url)
                 .get(url)
                 .check(status().is(status));

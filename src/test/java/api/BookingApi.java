@@ -1,4 +1,4 @@
-package features;
+package api;
 
 import io.gatling.javaapi.core.ChainBuilder;
 import net.datafaker.Faker;
@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 
 import static io.gatling.javaapi.core.CoreDsl.*;
 
-public class BookingFeature {
+public class BookingApi {
 
     private static final String CREATE_BOOKING_URL = "/booking";
     private static final String CREATE_BOOKING_BODY = "bodies/createBooking.json";
@@ -40,8 +40,7 @@ public class BookingFeature {
                 feed(bookingData())
         )
                 .exec(
-                        RequestBuilder.sendPostRequestAndCheckStatus(CREATE_BOOKING_URL, CREATE_BOOKING_BODY, 200)
-                                .header("Cookie", "token=#{token}")
+                        RequestBuilder.postWithAuth(CREATE_BOOKING_URL, CREATE_BOOKING_BODY, 200)
                                 .check(jsonPath("$.bookingid").ofInt().exists().saveAs("bookingid"))
                                 .check(jsonPath("$.booking.firstname").ofString().isEL("#{firstname}"))
                                 .check(jsonPath("$.booking.lastname").ofString().isEL("#{lastname}"))

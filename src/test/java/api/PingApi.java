@@ -1,17 +1,17 @@
-package features;
+package api;
 
 import io.gatling.javaapi.core.ChainBuilder;
 import utils.RequestBuilder;
 
 import static io.gatling.javaapi.core.CoreDsl.*;
 
-public class PingFeature {
+public class PingApi {
 
     private static final String PING_URL = "/ping";
 
     public static ChainBuilder healthCheck() {
         return exec(
-                RequestBuilder.sendGetRequestAndCheckStatus(PING_URL, 201)
+                RequestBuilder.get(PING_URL, 201)
                         .check(bodyString().is("Created"))
         );
     }
