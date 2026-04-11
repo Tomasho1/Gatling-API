@@ -8,7 +8,9 @@ import static io.gatling.javaapi.core.CoreDsl.scenario;
 
 public class BookingScenario {
 
-    public static ScenarioBuilder CREATE_BOOKING_SCENARIO = scenario("Create booking scenario")
+    public static ScenarioBuilder BOOKING_E2E_SCENARIO = scenario("Booking E2E scenario")
             .exec(AuthApi.createToken())
-            .exec(BookingApi.createBooking());
+            .exec(BookingApi.createBooking())
+            .exec(BookingApi.getBooking())
+            .exec(BookingApi.deleteBooking());
 }

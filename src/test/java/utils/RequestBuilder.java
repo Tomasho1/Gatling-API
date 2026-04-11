@@ -28,4 +28,12 @@ public class RequestBuilder {
                 .check(status().is(status));
 
     }
+
+    public static HttpRequestActionBuilder delete(String url, int status) {
+        return http("DELETE " + url)
+                .delete(url)
+                .header("Cookie", "token=#{token}")
+                .check(status().is(status));
+
+    }
 }

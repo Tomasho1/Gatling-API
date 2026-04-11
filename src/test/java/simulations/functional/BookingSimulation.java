@@ -1,4 +1,4 @@
-package simulations;
+package simulations.functional;
 
 import io.gatling.javaapi.core.OpenInjectionStep;
 import io.gatling.javaapi.core.Simulation;
@@ -9,7 +9,7 @@ public class BookingSimulation extends Simulation {
 
     {
         setUp(
-                BookingScenario.CREATE_BOOKING_SCENARIO.injectOpen(OpenInjectionStep.atOnceUsers(1))
+                BookingScenario.BOOKING_E2E_SCENARIO.injectOpen(OpenInjectionStep.atOnceUsers(1))
         ).protocols(ProtocolBuilder.defaultProtocol());
     }
 }

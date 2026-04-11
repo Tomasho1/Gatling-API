@@ -14,7 +14,7 @@ import static io.gatling.javaapi.core.CoreDsl.*;
 
 public class BookingApi {
 
-    private static final String CREATE_BOOKING_URL = "/booking";
+    private static final String BOOKING_URL = "/booking";
     private static final String CREATE_BOOKING_BODY = "bodies/createBooking.json";
 
     private static final Faker faker = new Faker();
@@ -40,8 +40,8 @@ public class BookingApi {
                 feed(bookingData())
         )
                 .exec(
-                        RequestBuilder.postWithAuth(CREATE_BOOKING_URL, CREATE_BOOKING_BODY, 200)
-                                .check(jsonPath("$.bookingid").ofInt().exists().saveAs("bookingid"))
+                        RequestBuilder.postWithAuth(BOOKING_URL, CREATE_BOOKING_BODY, 200)
+                                .check(jsonPath("$.bookingid").ofInt().exists().saveAs("bookingId"))
                                 .check(jsonPath("$.booking.firstname").ofString().isEL("#{firstname}"))
                                 .check(jsonPath("$.booking.lastname").ofString().isEL("#{lastname}"))
                                 .check(jsonPath("$.booking.totalprice").ofInt().isEL("#{totalprice}"))
@@ -50,5 +50,26 @@ public class BookingApi {
                                 .check(jsonPath("$.booking.bookingdates.checkout").ofString().isEL("#{checkout}"))
                                 .check(jsonPath("$.booking.additionalneeds").ofString().isEL("#{additionalneeds}"))
                 );
+    }
+
+    public static ChainBuilder getBooking() {
+        return exec(
+                RequestBuilder.get(BOOKING_URL + "/#{bookingId}", 200)
+                        .check(jsonPath("$.firstname").ofString().isEL("#{firstname}"))
+                        .check(jsonPath("$.lastname").ofString().isEL("#{lastname}"))
+                        .check(jsonPath("$.totalprice").ofInt().isEL("#{totalprice}"))
+                        .check(jsonPath("$.depositpaid").ofBoolean().isEL("#{depositpaid}"))
+                        .check(jsonPath("$.bookingdates.checkin").ofString().isEL("#{checkin}"))
+                        .check(jsonPath("$.bookingdates.checkout").ofString().isEL("#{checkout}"))
+                        .check(jsonPath("$.additionalneeds").ofString().isEL("#{additionalneeds}"))
+        );
+    }
+
+    public static ChainBuilder deleteBooking() {
+        return exec(
+                RequestBuilder.delete(BOOKING_URL + "/#{bookingId}", 201)
+        ).exec(
+                RequestBuilder.get(BOOKING_URL + "/#{bookingId}", 404)
+        );
     }
 }
