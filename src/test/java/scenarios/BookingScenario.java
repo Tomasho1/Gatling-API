@@ -12,5 +12,7 @@ public class BookingScenario {
             .exec(AuthApi.createToken())
             .exec(BookingApi.createBooking())
             .exec(BookingApi.getBooking())
+            .exec(BookingApi.updateBooking())
+            .exec(BookingApi.getBooking())
             .exec(BookingApi.deleteBooking());
 }

@@ -36,4 +36,13 @@ public class RequestBuilder {
                 .check(status().is(status));
 
     }
+
+    public static HttpRequestActionBuilder put(String url, String body, int status) {
+        return http("PUT " + url)
+                .put(url)
+                .header("Cookie", "token=#{token}")
+                .body(ElFileBody((body)))
+                .asJson()
+                .check(status().is(status));
+    }
 }

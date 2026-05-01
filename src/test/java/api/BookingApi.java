@@ -72,4 +72,19 @@ public class BookingApi {
                 RequestBuilder.get(BOOKING_URL + "/#{bookingId}", 404)
         );
     }
+
+    public static ChainBuilder updateBooking() {
+        return exec(session ->
+                session.set("depositpaid", !session.getBoolean("depositpaid"))
+        ).exec(
+                RequestBuilder.put(BOOKING_URL + "/#{bookingId}", CREATE_BOOKING_BODY, 200)
+                        .check(jsonPath("$.firstname").ofString().isEL("#{firstname}"))
+                        .check(jsonPath("$.lastname").ofString().isEL("#{lastname}"))
+                        .check(jsonPath("$.totalprice").ofInt().isEL("#{totalprice}"))
+                        .check(jsonPath("$.depositpaid").ofBoolean().isEL("#{depositpaid}"))
+                        .check(jsonPath("$.bookingdates.checkin").ofString().isEL("#{checkin}"))
+                        .check(jsonPath("$.bookingdates.checkout").ofString().isEL("#{checkout}"))
+                        .check(jsonPath("$.additionalneeds").ofString().isEL("#{additionalneeds}"))
+        );
+    }
 }
