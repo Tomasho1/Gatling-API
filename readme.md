@@ -34,9 +34,11 @@ Goal of this project is to practice:
 ```
 
 ## 🧪 Scenarios
-- [BookingScenario](src/test/java/scenarios/BookingScenario.java)
-  - BookingE2EScenario
-    full booking lifecycle: create -> get -> update -> get -> delete
+[BookingScenario](src/test/java/scenarios/BookingScenario.java)
+### BookingE2EScenario
+
+Full booking lifecycle:
+create → get → update → get → delete
 
 ### Functional tests
 
@@ -50,19 +52,20 @@ Goal of this project is to practice:
 ## ⚙️ Running tests
 ### Configuration 
 - Base URL is defined in [config.properties](src/test/resources/config.properties)
-- Example command to execute tests:
+- Example command:
 ```
 mvn gatling:test '-Dgatling.simulationClass=simulations.functional.BookingSimulation'
 ```
 
 ### Reports
 After test execution, Gatling generates reports in
-```target/gatling/```
+`target/gatling/`
 <br>
-Open index.html to see execution details, including:
+Open `index.html` to see execution details, including:
 - number of requests
 - response times
 - errors
+
 ![Gatling report](docs/report.png)
 
 ## 📝 TODO list
